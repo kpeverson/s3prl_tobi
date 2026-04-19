@@ -1,28 +1,11 @@
-import atexit
-import signal as sig
-import h5py
-import torch
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 import numpy as np
-import librosa
-from librosa.util import find_files
-import scipy
-from scipy import signal
-from torchaudio import load
-from torch import nn
 import os
-import re
 import random
-import pickle
 import torchaudio
-import sys
-import time
-import glob
 import tqdm
-from pathlib import Path
 
 from ...dataset.glottal_extraction import GlottalExtractor
-from ...dataset.memmap_feature_store import MemmapFeatureStore
 
 # CACHE_PATH = os.path.join(os.path.dirname(__file__), '.cache/')
 EXCLUDE_IDS = ["data/f3a/labnews/j/radio/f3ajrlp2", "data/f2b/radio/s18/f2bs18p8"]
