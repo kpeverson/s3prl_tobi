@@ -1,0 +1,43 @@
+
+runner:
+  total_steps: 40000
+  gradient_clipping: 1
+  gradient_accumulate_steps: 4
+
+  log_step: 85
+  eval_step: 85
+  save_step: 85
+  max_keep: 1
+  eval_dataloaders: 
+    - dev
+    - test
+  
+optimizer:
+  name: TorchOptim
+  torch_optim_name: Adam
+  lr: 1.0e-4 #1.0e-2
+
+# # comment the whole scheduler config block to disable learning rate scheduling
+# scheduler:
+#   name: linear_schedule_with_warmup
+#   num_warmup_steps: 5000
+
+downstream_expert: 
+  datarc:
+    file_path: /gscratch/tial/data/bu_radio
+    meta_data: /gscratch/tial/data/bu_radio/splits.tsv
+    sr: 16000
+    num_workers: 8
+    train_batch_size: 16
+    eval_batch_size: 1
+    # max_timestep: 128000
+    return_glottal: True
+    window_size: 0.2
+    labels_mode: 0123v4
+
+  modelrc:
+    projector_dim: 256
+    select: UtteranceLevelBeforeAfter
+    UtteranceLevelBeforeAfter:
+      pooling: AttentivePooling
+    feature_rate: 50
